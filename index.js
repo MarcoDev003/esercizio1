@@ -30,12 +30,21 @@ app.get("/somma", (req, res) => {
 app.post("/testo", (req, res) => {
   const { testo } = req.body;
   fs.writeFileSync("./testo.txt", testo);
+  const testoJson = JSON.parse(testo);
+  console.log(testoJson);
   return res.json(testo);
 });
+
 app.delete("/testo", (req, res) => {
   fs.unlinkSync("./testo.txt");
   return res.json({ message: "File deleted" });
 });
+
+app.get("/testo", (req, res) => {
+  const testo = fs.readFileSync("./testo.txt");
+  console.log(testoJson);
+  return res.json(testo);
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
